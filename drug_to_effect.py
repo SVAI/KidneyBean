@@ -59,13 +59,13 @@ def get_gene_drug_risks(gene_name):
 
         except Exception as e:
             print("Error <{}> for drug {}".format(e, d))
-            effs[d] = {'error':e}
+            effs[d] = {'risk':None, 'var':None, 'error':e}
 
     print(effs)
     return(effs)
 
 def main():
-    gn = "MET"
+    gn = "TUBB8"
     eff = get_gene_drug_risks(gn)
     pickle.dump(eff, open("gene_"+gn+"_drug_risks.p", "wb"))
 
