@@ -6,8 +6,8 @@ import sys
 import pandas as pd
 import numpy as np
 
-def main():
-    nm = sys.argv[1]
+def plot_drug_data(nm):
+
     gene_name = nm.split("_")[1]
     d = pickle.load(open(nm, "rb"))
     drugs = list(d.keys())
@@ -43,4 +43,5 @@ def main():
     plt.show()
 
 if __name__=="__main__":
-    main()
+    nm = sys.argv[1]
+    plot_drug_data(nm)
