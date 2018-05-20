@@ -9,13 +9,12 @@ from gene_to_drug import gene_to_drug
 
 def drug_to_effect(drug_name):
 
-    n = 10
     apikey = 'GLvXwBpL1cZ6G5ia0kDpyMixAKQhH6mWzz46GUeb'
     # url = 'https://api.fda.gov/drug/event.json?search='+drug_name+\
     #         '&limit='+str(n)
     url = 'https://api.fda.gov/drug/event.json?search=patient.drug.medicinalproduct:{}&count=serious'.format(drug_name.replace(' ', '+'))
 
-    print(url)
+    # print(url)
     myResponse = requests.get(url)
 
     if(myResponse.ok):
@@ -31,7 +30,7 @@ def drug_to_effect(drug_name):
         bad = [r['count'] for r in res if r['term']==1]
         notbad = [r['count'] for r in res if r['term']==2]
         if len(bad)==0 or len(notbad)==0:
-            raise Exception("drug {} has too few results".format(drug_name))
+            raise Exception("drug {} has too few results in openFDA".format(drug_name))
 
         bad = bad[0]
         notbad = notbad[0]
@@ -39,7 +38,7 @@ def drug_to_effect(drug_name):
         risk = bad/total
         var = risk*(1-risk)/total
 
-        print("Risk of drug {} is {}".format(drug_name, risk))
+        # print("Risk of drug {} is {}".format(drug_name, risk))
         return(risk, var)
 
     else:
@@ -57,7 +56,7 @@ def get_gene_drug_risks(gene_name):
             effs[d] = {'risk':s[0], 'var':s[1]}
 
         except Exception as e:
-            print("Error <{}> for drug {}".format(e, d))
+            # print("Error <{}> for drug {}".format(e, d))
             effs[d] = {'risk':None, 'var':None, 'error':e}
 
     # print(effs)

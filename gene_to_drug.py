@@ -6,6 +6,7 @@ def gene_to_drug(gene_name):
 
     url = 'http://dgidb.org/api/v2/interactions.json?genes='+gene_name
 
+    # print(url)
     myResponse = requests.get(url)
     gene_list=[]
 
@@ -21,13 +22,16 @@ def gene_to_drug(gene_name):
         # print("\n")
 
         drug_names = []
-        for key in jData['matchedTerms'][0]['interactions']:
-            drug_names.append(key['drugName'])
+        if len(jData['matchedTerms']) > 0:
+            for key in jData['matchedTerms'][0]['interactions']:
+                drug_names.append(key['drugName'])
 
+        # print("found {} drugs from dgidb".format(len(drug_names)))
         return(drug_names)
 
     else:
     # If response code is not ok (200), print the resulting http error code with description
+        # print("got network error from dgidb")
         myResponse.raise_for_status()
 
 def main():
