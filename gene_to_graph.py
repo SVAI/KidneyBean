@@ -1,7 +1,10 @@
 ## Convenience functions wrapping the pipeline and incorporating geneName.txt
 
-import pandas as pd
 import pdb
+# from matplotlib import pyplot as plt
+# import sys
+import pandas as pd
+import numpy as np
 
 from gene_to_drug import gene_to_drug
 from drug_to_effect import get_gene_drug_risks
