@@ -1,4 +1,4 @@
-KidneBean
+KidneyBean
 ---
  is a colab aimed at moving the needle on p1RCC (kidney cancer)
 
