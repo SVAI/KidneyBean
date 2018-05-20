@@ -31,7 +31,7 @@ def gene_to_drug(gene_name):
         myResponse.raise_for_status()
 
 def main():
-    r = gene_to_drug("MDM2")
+    r = gene_to_drug("MET")
     print(r)
 
 if __name__=="__main__":
