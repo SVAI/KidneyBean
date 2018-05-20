@@ -70,5 +70,3 @@ for set_name in gene_sets:
     #print('Genes not in subject and not in gene set:', len(d))
     experiments.append(experiment)
 
-experiments.sort(key=operator.itemgetter(4))
-for experiment in experim
