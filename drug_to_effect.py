@@ -1,6 +1,9 @@
+import pickle
 import requests
 import json
 import pdb
+
+from requests.exceptions import HTTPError
 
 from gene_to_drug import gene_to_drug
 
@@ -34,23 +37,37 @@ def drug_to_effect(drug_name):
         bad = bad[0]
         notbad = notbad[0]
         total = bad + notbad
-        pdb.set_trace()
         risk = bad/total
         var = risk*(1-risk)/total
 
         print("Risk of drug {} is {}".format(drug_name, risk))
-        return(risk)
+        return(risk, var)
 
     else:
         myResponse.raise_for_status()
 
-def main():
-    r = gene_to_drug("MET")
-    effs = []
+def get_gene_drug_risks(gene_name):
+    r = gene_to_drug(gene_name)
+
+    effs = {}
     for d in r:
-        s = drug_to_effect(d)
-        effs.append(s)
+        er = True
+        try:
+            s = drug_to_effect(d)
+            er = False
+            effs[d] = {'risk':s[0], 'var':s[1]}
+
+        except Exception as e:
+            print("Error <{}> for drug {}".format(e, d))
+            effs[d] = {'error':e}
+
     print(effs)
+    return(effs)
+
+def main():
+    gn = "MET"
+    eff = get_gene_drug_risks(gn)
+    pickle.dump(eff, open("gene_"+gn+"_drug_risks.p", "wb"))
 
 if __name__=="__main__":
     main()
