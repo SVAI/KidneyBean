@@ -5,7 +5,7 @@ KidneyBean
 ## Get started
 To get this codebase,
 1. install git (e.g. apt-get install git)
-2. git clone https://github.com/ekalosak/KidneyBean.git
+2. git clone https://github.com/SVAI/KidneyBean.git
 
 ## What this does
 1. Given a .vcf (difference between cancer and non-cancer genome)
@@ -15,5 +15,4 @@ To get this codebase,
 5. Recommend drug research targets
 
 ## How we recommend drug research targets
-Given the list of drugs and their properties (e.g. adverse effects, action
-category), TODO: design machine learning method
+Given a gene enrichment set over the variants called between a type 1 renal papilary carcinoma tumor, we extract drugs from gdidb.org which are known to interact with these genes. Furthermore, we extract risk profiles for the selected drugs from the FDA's adverse event reporting database. Sorting the dgi-suggested genes by these risk profiles, we suggest research candidates.
